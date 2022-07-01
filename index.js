@@ -24,6 +24,7 @@ async function run() {
     await client.connect();
     const serviceCollection = client.db("Vacation-Go").collection("services");
     const reviewCollection = client.db("Vacation-Go").collection("reviews");
+    const blogCollection = client.db("Vacation-Go").collection("blogs");
 
     // POST (Service)
     app.post("/service", async (req, res) => {
@@ -66,6 +67,28 @@ async function run() {
     app.get("/review", async (req, res) => {
       const query = req.query;
       const result = await reviewCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    // POST (Blog)
+    app.post("/blog", async (req, res) => {
+      const data = req.body;
+      const result = await blogCollection.insertOne(data);
+      res.send(result);
+    });
+
+    // GET (Blog)
+    app.get("/blog", async (req, res) => {
+      const query = req.query;
+      const result = await blogCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    // DELETE (Service)
+    app.delete("/blog/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await blogCollection.deleteOne(query);
       res.send(result);
     });
   } finally {
