@@ -25,6 +25,9 @@ async function run() {
     const serviceCollection = client.db("Vacation-Go").collection("services");
     const reviewCollection = client.db("Vacation-Go").collection("reviews");
     const blogCollection = client.db("Vacation-Go").collection("blogs");
+    const bookingServiceCollection = client
+      .db("Vacation-Go")
+      .collection("bookings");
 
     // POST (Service)
     app.post("/service", async (req, res) => {
@@ -89,6 +92,28 @@ async function run() {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await blogCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // POST (Booking-Service)
+    app.post("/booking", async (req, res) => {
+      const data = req.body;
+      const result = await bookingServiceCollection.insertOne(data);
+      res.send(result);
+    });
+
+    // GET (Booking-Service)
+    app.get("/booking", async (req, res) => {
+      const query = req.query;
+      const result = await bookingServiceCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    // DELETE (Booking-Service)
+    app.delete("/booking/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await bookingServiceCollection.deleteOne(query);
       res.send(result);
     });
   } finally {
