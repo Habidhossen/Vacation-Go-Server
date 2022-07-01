@@ -28,6 +28,7 @@ async function run() {
     const bookingServiceCollection = client
       .db("Vacation-Go")
       .collection("bookings");
+    const adminCollection = client.db("Vacation-Go").collection("admin");
 
     // POST (Service)
     app.post("/service", async (req, res) => {
@@ -109,12 +110,28 @@ async function run() {
       res.send(result);
     });
 
+    // GET One (Booking) by Email
+    app.get("/booking/:email", async (req, res) => {
+      const email = req.params.email;
+      const filter = { email: email };
+      const result = await bookingServiceCollection.find(filter).toArray();
+      res.send(result);
+    });
+
     // DELETE (Booking-Service)
     app.delete("/booking/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await bookingServiceCollection.deleteOne(query);
       res.send(result);
+    });
+
+    // GET (Admin-Role using Email)
+    app.get("/admin/:email", async (req, res) => {
+      const email = req.params.email;
+      const user = await adminCollection.findOne({ email: email });
+      const isAdmin = user?.role === "admin";
+      res.send({ admin: isAdmin });
     });
   } finally {
   }
