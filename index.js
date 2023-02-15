@@ -88,6 +88,14 @@ async function run() {
       res.send(result);
     });
 
+    // GET One Blog by ID
+    app.get("/blog/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await blogCollection.findOne(query);
+      res.send(result);
+    });
+
     // DELETE (Service)
     app.delete("/blog/:id", async (req, res) => {
       const id = req.params.id;
