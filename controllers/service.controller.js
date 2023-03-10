@@ -53,10 +53,10 @@ exports.getOneService = async (req, res) => {
 exports.deleteOneService = async (req, res) => {
   try {
     const serviceId = req.params.id;
-    const service = await Service.deleteOne(serviceId);
+    await Service.findByIdAndDelete(serviceId);
     res.status(200).json({
       status: "success",
-      data: service,
+      message: "Service deleted successfully",
     });
   } catch (error) {
     res.status(500).json({

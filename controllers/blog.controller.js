@@ -53,10 +53,10 @@ exports.getOneBlog = async (req, res) => {
 exports.deleteOneBlog = async (req, res) => {
   try {
     const blogId = req.params.id;
-    const blog = await Blog.deleteOne(blogId);
+    await Blog.findByIdAndDelete(blogId);
     res.status(200).json({
       status: "success",
-      data: blog,
+      message: "Blog deleted successfully",
     });
   } catch (error) {
     res.status(500).json({
