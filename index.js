@@ -1,15 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const ObjectId = require("mongodb").ObjectId;
+require("./config/db_conn");
+// const { MongoClient, ServerApiVersion } = require("mongodb");
+// const ObjectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 4000;
 const app = express();
+const serviceRouter = require("./routes/service.route");
+const reviewRouter = require("./routes/review.route");
 
 // middleware
 app.use(cors());
 app.use(express.json());
 
+/* 
 // mongoDB drive code
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.3mjkw.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -22,7 +26,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    const serviceCollection = client.db("Vacation-Go").collection("services");
+    // const serviceCollection = client.db("Vacation-Go").collection("services");
     const reviewCollection = client.db("Vacation-Go").collection("reviews");
     const blogCollection = client.db("Vacation-Go").collection("blogs");
     const bookingServiceCollection = client
@@ -144,14 +148,38 @@ async function run() {
   } finally {
   }
 }
-run().catch(console.dir);
+run().catch(console.dir); */
 
 // running the server
-app.get("/", (req, res) => {
-  res.send("VacationGO server is running...");
-});
+// app.get("/", (req, res) => {
+//   res.send("VacationGO server is running...");
+// });
 
 // listening port
 app.listen(port, () => {
-  console.log("Listening to port", port);
+  console.log("Listening on port", port);
+});
+
+// Route
+app.use("/api", serviceRouter);
+app.use("/api", reviewRouter);
+// app.use("/api", blogRouter);
+
+// Home Route
+app.get("/", (req, res) => {
+  res.status(200).send("Welcome to Vacation Go Server");
+});
+
+// If Route not found
+app.use((req, res, next) => {
+  res.status(404).json({
+    message: "Route Not Found!",
+  });
+});
+
+// if Server Error
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    message: "Something is broke!",
+  });
 });
