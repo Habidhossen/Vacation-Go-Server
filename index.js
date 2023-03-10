@@ -8,6 +8,7 @@ const port = process.env.PORT || 4000;
 const app = express();
 const serviceRouter = require("./routes/service.route");
 const reviewRouter = require("./routes/review.route");
+const blogRouter = require("./routes/blog.route");
 
 // middleware
 app.use(cors());
@@ -163,7 +164,7 @@ app.listen(port, () => {
 // Route
 app.use("/api", serviceRouter);
 app.use("/api", reviewRouter);
-// app.use("/api", blogRouter);
+app.use("/api", blogRouter);
 
 // Home Route
 app.get("/", (req, res) => {

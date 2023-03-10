@@ -15,6 +15,7 @@ const reviewSchema = mongoose.Schema(
     rating: {
       type: Number,
       required: [true, "Please provide price!"],
+      max: [5, "Rating will maximum 5"],
     },
     img: {
       type: String,

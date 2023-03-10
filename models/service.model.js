@@ -11,7 +11,6 @@ const serviceSchema = mongoose.Schema(
       type: String,
       required: [true, "Please provide a description for this service!"],
       trim: true,
-      maxLength: [50, "Description length must be {VALUE} characters"],
     },
     img: {
       type: String,
