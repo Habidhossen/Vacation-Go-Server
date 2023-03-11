@@ -2,13 +2,12 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 require("./config/db_conn");
-// const { MongoClient, ServerApiVersion } = require("mongodb");
-// const ObjectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 4000;
 const app = express();
 const serviceRouter = require("./routes/service.route");
 const reviewRouter = require("./routes/review.route");
 const blogRouter = require("./routes/blog.route");
+const bookingRouter = require("./routes/booking.route");
 
 // middleware
 app.use(cors());
@@ -165,6 +164,7 @@ app.listen(port, () => {
 app.use("/api", serviceRouter);
 app.use("/api", reviewRouter);
 app.use("/api", blogRouter);
+app.use("/api", bookingRouter);
 
 // Home Route
 app.get("/", (req, res) => {
