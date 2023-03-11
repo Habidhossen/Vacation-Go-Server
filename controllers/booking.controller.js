@@ -3,7 +3,7 @@ const Booking = require("../models/booking.model");
 exports.createBooking = async (req, res) => {
   try {
     const bookingData = req.body;
-    const booking = new Service(bookingData);
+    const booking = new Booking(bookingData);
     await booking.save();
     res.status(201).json({
       status: "success",
@@ -36,7 +36,7 @@ exports.getAllBookings = async (req, res) => {
 exports.getSpecificBooking = async (req, res) => {
   try {
     const bookingEmail = req.params.email;
-    const booking = await Service.find({ email: bookingEmail });
+    const booking = await Booking.find({ userEmail: bookingEmail });
     res.status(200).json({
       status: "success",
       data: booking,
