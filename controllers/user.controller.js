@@ -25,3 +25,40 @@ exports.createUser = async (req, res) => {
     });
   }
 };
+exports.makeAdmin = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const filter = { email: email };
+    const updateDoc = {
+      $set: { role: "admin" },
+    };
+    const result = await User.updateOne(filter, updateDoc);
+    res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: "Can't get the data",
+      error: error.message,
+    });
+  }
+};
+exports.getAdmin = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await User.findOne({ email: email });
+    const isAdmin = user?.role === "admin";
+    res.status(200).json({
+      status: "success",
+      admin: isAdmin,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: "Can't get the data",
+      error: error.message,
+    });
+  }
+};

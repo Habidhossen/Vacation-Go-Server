@@ -12,6 +12,11 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    role: {
+      type: String,
+      required: true,
+      default: "user",
+    },
   },
   {
     timestamps: true,
