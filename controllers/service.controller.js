@@ -34,6 +34,7 @@ exports.getAllServices = async (req, res) => {
     });
   }
 };
+
 exports.getOneService = async (req, res) => {
   try {
     const serviceId = req.params.id;
@@ -50,6 +51,7 @@ exports.getOneService = async (req, res) => {
     });
   }
 };
+
 exports.deleteOneService = async (req, res) => {
   try {
     const serviceId = req.params.id;

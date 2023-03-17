@@ -34,6 +34,7 @@ exports.getAllBlogs = async (req, res) => {
     });
   }
 };
+
 exports.getOneBlog = async (req, res) => {
   try {
     const blogId = req.params.id;
@@ -50,6 +51,7 @@ exports.getOneBlog = async (req, res) => {
     });
   }
 };
+
 exports.deleteOneBlog = async (req, res) => {
   try {
     const blogId = req.params.id;

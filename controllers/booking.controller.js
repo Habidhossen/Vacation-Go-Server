@@ -18,6 +18,7 @@ exports.createBooking = async (req, res) => {
     });
   }
 };
+
 exports.getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find();
@@ -33,6 +34,7 @@ exports.getAllBookings = async (req, res) => {
     });
   }
 };
+
 exports.getSpecificBooking = async (req, res) => {
   try {
     const bookingEmail = req.params.email;
@@ -49,6 +51,7 @@ exports.getSpecificBooking = async (req, res) => {
     });
   }
 };
+
 exports.deleteBooking = async (req, res) => {
   try {
     const bookingId = req.params.id;
