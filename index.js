@@ -11,7 +11,9 @@ const bookingRouter = require("./routes/booking.route");
 const userRouter = require("./routes/user.route");
 
 // middleware
-app.use(cors());
+app.use(
+  cors({ origin: "*", methods: ["GET", "POST", "PUT", "PATCH", "DELETE"] }) // for handling CORS policy error
+);
 app.use(express.json());
 
 // listening port
